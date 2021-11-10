@@ -1,0 +1,29 @@
+version: "3"
+services:
+   jenkins_master:
+     image: jenkins/jenkins:latest
+     container_name: jenkins
+     user: root
+     restart: always
+     volumes:
+     - /jenkins:/var/lenkins_home
+     ports:
+     - 8080:8080
+     - 50000:50000
+
+   jenkins_slave1:
+     build: ./postgres
+     container_name: jenkins_slave1
+
+     user: root
+     restart: always
+     volumes:
+     - ./postgres1-data:/var/lib/postgresql/data
+
+   jenkins_slave2:
+     build: ./postgres
+     container_name: jenkins_slave2
+     user: root
+     restart: always
+     volumes:
+     - ./postgres2-data:/var/lib/postgresql/data
